@@ -108,9 +108,6 @@ const HeroSection = () => {
           bottom:"-50px",
           right:0,
           zIndex:-1
-          /* top: "220px",
-          left: "150px", */
-
         }}>
         <Image width={180} height={180} src={asserts.images.stethoscope} alt="stethoscope"/>
         </Box>
