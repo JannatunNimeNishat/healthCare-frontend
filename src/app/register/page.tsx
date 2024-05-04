@@ -36,6 +36,7 @@ const RegisterPage = () => {
             </Box>
           </Stack>
           <Box>
+          <form>
           <Grid container spacing={3} my={1}>
             {/* 1st row */}
             <Grid item md={12}>
@@ -92,6 +93,7 @@ const RegisterPage = () => {
           <Typography component="p" fontWeight={300}>Do you already have an account? 
           <Link href={'/login'}> Login</Link>
           </Typography>
+          </form>
           </Box>
         </Box>
       </Stack>
