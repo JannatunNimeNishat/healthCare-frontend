@@ -12,11 +12,10 @@ import assets from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
-
-
+import { modifyPayload } from "@/utils/modifyPayload";
 
 interface IPatientData {
-name: string;
+  name: string;
   email: string;
   contactNumber: string;
   address: string;
@@ -24,17 +23,19 @@ name: string;
 
 interface IPatientRegisterFromData {
   password: string;
-  patient: IPatientData
+  patient: IPatientData;
 }
 
 const RegisterPage = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<IPatientRegisterFromData>();
-  const onSubmit: SubmitHandler<IPatientRegisterFromData> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IPatientRegisterFromData> = (values) => {
+    const data = modifyPayload(values);
+    console.log(data);
+  };
 
   return (
     <Container>
