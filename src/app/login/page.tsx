@@ -14,13 +14,16 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 
 export interface IUserLoginData {
   email: string;
   password: string;
 }
 const LoginPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -30,8 +33,10 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<IUserLoginData> = async (data) => {
     try {
       const res = await userLogin(data);
-      if (res.data.accessToken) {
+      if (res?.data?.accessToken) {
+        toast.success(res?.message);
         storeUserInfo({accessToken: res?.data?.accessToken});
+        router.push("/");
       }
     } catch (error: any) {
       console.log(error.message);
