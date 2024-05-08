@@ -1,4 +1,8 @@
+"use client";
+
 import assets from "@/assets";
+import { storeUserInfo } from "@/services/actions/auth.sevices";
+import { userLogin } from "@/services/actions/userLogin";
 import {
   Box,
   Button,
@@ -10,8 +14,30 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useForm, SubmitHandler } from "react-hook-form";
 
+export interface IUserLoginData {
+  email: string;
+  password: string;
+}
 const LoginPage = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IUserLoginData>();
+  const onSubmit: SubmitHandler<IUserLoginData> = async (data) => {
+    try {
+      const res = await userLogin(data);
+      if (res.data.accessToken) {
+        storeUserInfo({accessToken: res?.data?.accessToken});
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <Container>
       <Stack
@@ -49,9 +75,8 @@ const LoginPage = () => {
           </Stack>
           {/* form */}
           <Box>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container spacing={3} my={1}>
-               
                 {/* 2nd row1 */}
                 <Grid item md={6}>
                   <TextField
@@ -60,6 +85,7 @@ const LoginPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("email")}
                   />
                 </Grid>
                 {/* 2nd row2 */}
@@ -70,17 +96,26 @@ const LoginPage = () => {
                     variant="outlined"
                     size="small"
                     fullWidth={true}
+                    {...register("password")}
                   />
                 </Grid>
-                
               </Grid>
               {/* forget password */}
-              <Typography mb={1} textAlign={"end"} component="p" fontWeight={300}>
-               Forgot Password ?
+              <Typography
+                mb={1}
+                textAlign={"end"}
+                component="p"
+                fontWeight={300}
+              >
+                Forgot Password ?
               </Typography>
 
               {/* buttons */}
-              <Button sx={{ margin: "10px 10px" }} fullWidth={true}>
+              <Button
+                type="submit"
+                sx={{ margin: "10px 10px" }}
+                fullWidth={true}
+              >
                 Login
               </Button>
               <Typography component="p" fontWeight={300}>
