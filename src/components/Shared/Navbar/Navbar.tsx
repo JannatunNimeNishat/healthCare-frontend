@@ -1,12 +1,15 @@
 "use client";
-import AuthButton from "@/components/Ui/AuthButton/AuthButton";
-import { getUserInfo, isLoggedIn, removeUser } from "@/services/actions/auth.sevices";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+
+import { Box, Container, Stack, Typography } from "@mui/material";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-
+  // for resolve the ssr error and Lazy-loading
+  const AuthButton = dynamic(
+    () => import("@/components/Ui/AuthButton/AuthButton"),
+    { ssr: false }
+  );
   return (
     <Container>
       <Stack
@@ -33,8 +36,7 @@ const Navbar = () => {
           <Typography>NGOs</Typography>
         </Stack>
         {/* button components Login/Logout */}
-        <AuthButton/>
-
+        <AuthButton />
       </Stack>
     </Container>
   );
