@@ -1,6 +1,8 @@
 "use client";
 
 import assets from "@/assets";
+import PHForm from "@/components/Forms/PHForm";
+import PHInput from "@/components/Forms/PHInput";
 import { storeUserInfo } from "@/services/actions/auth.sevices";
 import { userLogin } from "@/services/actions/userLogin";
 import {
@@ -15,27 +17,19 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
-export interface IUserLoginData {
-  email: string;
-  password: string;
-}
 const LoginPage = () => {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<IUserLoginData>();
-  const onSubmit: SubmitHandler<IUserLoginData> = async (data) => {
+
+  const handleLogin = async (values: FieldValues) => {
     try {
-      const res = await userLogin(data);
+      const res = await userLogin(values);
+  
       if (res?.data?.accessToken) {
         toast.success(res?.message);
-        storeUserInfo({accessToken: res?.data?.accessToken});
+        storeUserInfo({ accessToken: res?.data?.accessToken });
         router.push("/");
       }
     } catch (error: any) {
@@ -80,28 +74,24 @@ const LoginPage = () => {
           </Stack>
           {/* form */}
           <Box>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <PHForm onSubmit={handleLogin}>
               <Grid container spacing={3} my={1}>
                 {/* 2nd row1 */}
                 <Grid item md={6}>
-                  <TextField
+                  <PHInput
+                    name="email"
                     type="email"
                     label="Email"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("email")}
                   />
                 </Grid>
                 {/* 2nd row2 */}
                 <Grid item md={6}>
-                  <TextField
+                  <PHInput
+                    name="password"
                     type="password"
                     label="Password"
-                    variant="outlined"
-                    size="small"
                     fullWidth={true}
-                    {...register("password")}
                   />
                 </Grid>
               </Grid>
@@ -127,7 +117,7 @@ const LoginPage = () => {
                 Don&apos;t have an account?
                 <Link href={"/register"}> Create an account</Link>
               </Typography>
-            </form>
+            </PHForm>
           </Box>
         </Box>
       </Stack>
