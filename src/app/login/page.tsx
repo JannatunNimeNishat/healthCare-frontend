@@ -18,6 +18,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -29,8 +30,9 @@ export const validationSchema = z.object({
 
 const LoginPage = () => {
   const router = useRouter();
-
+  const [error, setError] = useState("");
   const handleLogin = async (values: FieldValues) => {
+    setError("");
     try {
       const res = await userLogin(values);
 
@@ -38,6 +40,8 @@ const LoginPage = () => {
         toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
         router.push("/");
+      } else {
+        setError(res?.message);
       }
     } catch (error: any) {
       console.log(error.message);
@@ -79,13 +83,31 @@ const LoginPage = () => {
               </Typography>
             </Box>
           </Stack>
+          {/* error message */}
+          {error && (
+            <Box>
+              <Typography
+                sx={{
+                  backgroundColor: "red",
+                  padding: "1px",
+                  borderRadius: "2px",
+                  color: "white",
+                  marginTop: "5px",
+                }}
+              >
+                {error}
+              </Typography>
+            </Box>
+          )}
           {/* form */}
           <Box>
-            <PHForm onSubmit={handleLogin} resolver={zodResolver(validationSchema)}
-            defaultValues = {{
-              email:"",
-              password:""
-            }}
+            <PHForm
+              onSubmit={handleLogin}
+              resolver={zodResolver(validationSchema)}
+              defaultValues={{
+                email: "",
+                password: "",
+              }}
             >
               <Grid container spacing={3} my={1}>
                 {/* 2nd row1 */}
@@ -95,7 +117,6 @@ const LoginPage = () => {
                     type="email"
                     label="Email"
                     fullWidth={true}
-                   
                   />
                 </Grid>
                 {/* 2nd row2 */}
@@ -105,7 +126,6 @@ const LoginPage = () => {
                     type="password"
                     label="Password"
                     fullWidth={true}
-                   
                   />
                 </Grid>
               </Grid>
