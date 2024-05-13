@@ -91,6 +91,7 @@ const RegisterPage = () => {
                   type="text"
                     label="Name"
                     fullWidth={true}
+                    required={true}
                    
                   />
                 </Grid>
@@ -101,6 +102,7 @@ const RegisterPage = () => {
                     type="email"
                     label="Email"
                     fullWidth={true}
+                    required={true}
                     
                   />
                 </Grid>
@@ -111,6 +113,7 @@ const RegisterPage = () => {
                     type="password"
                     label="Password"
                     fullWidth={true}
+                    required={true}
                     
                   />
                 </Grid>
@@ -121,6 +124,7 @@ const RegisterPage = () => {
                     type="tel"
                     label="Contact Number"
                     fullWidth={true}
+                    required={true}
                     
                   />
                 </Grid>
@@ -131,6 +135,7 @@ const RegisterPage = () => {
                     type="text"
                     label="Address"
                     fullWidth={true}
+                    required={true}
                     
                   />
                 </Grid>
@@ -140,6 +145,7 @@ const RegisterPage = () => {
                 type="submit"
                 sx={{ margin: "10px 10px" }}
                 fullWidth={true}
+                required={true}
               >
                 Register
               </Button>

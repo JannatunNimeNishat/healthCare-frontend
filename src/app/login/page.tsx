@@ -26,7 +26,7 @@ const LoginPage = () => {
   const handleLogin = async (values: FieldValues) => {
     try {
       const res = await userLogin(values);
-  
+
       if (res?.data?.accessToken) {
         toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
@@ -83,6 +83,7 @@ const LoginPage = () => {
                     type="email"
                     label="Email"
                     fullWidth={true}
+                    required={true}
                   />
                 </Grid>
                 {/* 2nd row2 */}
@@ -92,6 +93,7 @@ const LoginPage = () => {
                     type="password"
                     label="Password"
                     fullWidth={true}
+                    required={true}
                   />
                 </Grid>
               </Grid>
