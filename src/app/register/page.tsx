@@ -1,16 +1,9 @@
 "use client";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import assets from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
-import {  FieldValues } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { registerPatient } from "@/services/actions/registerPatient";
 import { toast } from "sonner";
@@ -20,12 +13,37 @@ import { userLogin } from "@/services/actions/userLogin";
 import { storeUserInfo } from "@/services/actions/auth.sevices";
 import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
+export const patientValidationSchema = z.object({
+  name: z.string().min(1, "Please enter your name!"),
+  email: z.string().email("Please enter your valid email address!"),
+  contactNumber: z
+    .string()
+    .regex(/^\d{11}$/, "Please provide a valid phone number!"),
+  address: z.string().min(1, "Please enter your address"),
+});
+
+export const validationSchema = z.object({
+  password: z.string().min(6, "Must be least 6 characters"),
+  patient: patientValidationSchema,
+});
+
+export const defaultValues = {
+  password: "",
+  patient: {
+    name: "",
+    email: "",
+    contactNumber: "",
+    address: "",
+  },
+};
 
 const RegisterPage = () => {
   const router = useRouter();
 
-  const handleRegister = async (values:FieldValues) => {
+  const handleRegister = async (values: FieldValues) => {
     const data = modifyPayload(values);
     try {
       const res = await registerPatient(data);
@@ -82,61 +100,55 @@ const RegisterPage = () => {
           </Stack>
           {/* form */}
           <Box>
-            <PHForm onSubmit={handleRegister}>
+            <PHForm
+              onSubmit={handleRegister}
+              resolver={zodResolver(validationSchema)}
+              defaultValues={defaultValues}
+            >
               <Grid container spacing={3} my={1}>
                 {/* 1st row */}
                 <Grid item md={12}>
                   <PHInput
-                  name="patient.name"
-                  type="text"
+                    name="patient.name"
+                    type="text"
                     label="Name"
                     fullWidth={true}
-                    required={true}
-                   
                   />
                 </Grid>
                 {/* 2nd row1 */}
                 <Grid item md={6}>
                   <PHInput
-                  name="patient.email"
+                    name="patient.email"
                     type="email"
                     label="Email"
                     fullWidth={true}
-                    required={true}
-                    
                   />
                 </Grid>
                 {/* 2nd row2 */}
                 <Grid item md={6}>
                   <PHInput
-                  name="password"
+                    name="password"
                     type="password"
                     label="Password"
                     fullWidth={true}
-                    required={true}
-                    
                   />
                 </Grid>
                 {/* 3rd row1 */}
                 <Grid item md={6}>
                   <PHInput
-                  name="patient.contactNumber"
+                    name="patient.contactNumber"
                     type="tel"
                     label="Contact Number"
                     fullWidth={true}
-                    required={true}
-                    
                   />
                 </Grid>
                 {/* 3rd row2 */}
                 <Grid item md={6}>
                   <PHInput
-                  name="patient.address"
+                    name="patient.address"
                     type="text"
                     label="Address"
                     fullWidth={true}
-                    required={true}
-                    
                   />
                 </Grid>
               </Grid>
@@ -145,7 +157,6 @@ const RegisterPage = () => {
                 type="submit"
                 sx={{ margin: "10px 10px" }}
                 fullWidth={true}
-                required={true}
               >
                 Register
               </Button>
