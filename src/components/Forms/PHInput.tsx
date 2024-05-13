@@ -27,7 +27,7 @@ const PHInput = ({
     <Controller
       control={control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState:{error} }) => (
         <TextField
           {...field}
           sx={{ ...sx }} 
@@ -38,6 +38,8 @@ const PHInput = ({
           fullWidth={fullWidth}
           placeholder={label}
           required={required}
+          error={!!error?.message}
+          helperText={error?.message}
         />
       )}
     />
