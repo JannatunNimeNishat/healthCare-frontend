@@ -38,7 +38,6 @@ const SideBar = () => {
         {drawerItems("admin" as IUserRole).map((item, index) => (
           <SideBarItem
           key={index}
-          index={index}
           item={item}
           />
         ))}
