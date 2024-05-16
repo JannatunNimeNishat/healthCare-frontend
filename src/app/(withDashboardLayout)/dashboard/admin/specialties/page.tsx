@@ -1,7 +1,8 @@
 "use client"
 import { Box, Button, Stack, TextField } from "@mui/material";
-import SpecialtiesModal from "./components/SpecialtiesModal";
+
 import { useState } from "react";
+import SpecialtyModal from "./components/SpecialtiesModal";
 
 const SpecialtiesPage = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -15,7 +16,7 @@ const SpecialtiesPage = () => {
         <Button
         onClick={()=>setIsModalOpen(true)}
         >Create Specialty</Button>
-        <SpecialtiesModal 
+        <SpecialtyModal 
         open={isModalOpen}
         setOpen={setIsModalOpen}
         />
