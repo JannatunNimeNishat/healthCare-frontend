@@ -17,3 +17,19 @@ export interface IDrawerItem {
   icon?:OverridableComponent<SvgIconTypeMap<{},"svg">> & {muiName:string};
   child?:IDrawerItem[];
 }
+
+export type IResponseSuccessType = {
+  data:any;
+  meta?:IMeta
+}
+
+export type IGenericErrorResponse = {
+  statusCode:number;
+  message:string;
+  errorMessage:IGenericErrorMessage[]
+}
+
+export type IGenericErrorMessage = {
+  path:string | number;
+  message:string;
+}
