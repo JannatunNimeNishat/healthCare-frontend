@@ -1,10 +1,18 @@
+import { Box, Button, Stack, TextField } from "@mui/material";
 
 
 const DoctorsPage = () => {
     return (
-        <div>
-            <h1>doctors page</h1>
-        </div>
+        <Box>
+            <Stack
+            direction={"row"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            >
+                <Button>CREATE NEW DOCTOR</Button>
+                <TextField size="small" placeholder="Search doctors" />
+            </Stack>
+        </Box>
     );
 };
 
