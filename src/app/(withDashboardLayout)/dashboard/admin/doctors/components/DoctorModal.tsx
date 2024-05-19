@@ -14,7 +14,7 @@ type TProps = {
 const DoctorModal = ({ open, setOpen }: TProps) => {
 
     const handleFormSubmit = async (values: FieldValues) => {
-       
+       console.log(values);
       };
 
     const defaultValues = {
