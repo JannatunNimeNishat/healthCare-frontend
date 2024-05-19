@@ -5,12 +5,20 @@ import { useState } from "react";
 import { useGetAllDoctorQuery } from "@/redux/api/doctorApi";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useDebounced } from "@/redux/hooks";
 const DoctorsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const query: Record<string, any> = {};
   const [searchTerm, setSearchTerm] = useState<string>("");
-  query["searchTerm"] = searchTerm;
-  const { data, isLoading } = useGetAllDoctorQuery({...query});
+  // debounced for optimal search
+  const debounced = useDebounced({
+    searchQuery: searchTerm,
+    delay: 600,
+  });
+  if(!!debounced){
+    query["searchTerm"] = searchTerm;
+  }
+  const { data, isLoading } = useGetAllDoctorQuery({ ...query });
   const doctors = data?.doctors;
   const meta = data?.meta;
 
