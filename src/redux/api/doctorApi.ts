@@ -2,6 +2,7 @@
 import { baseApi } from "./baseApi";
 import { tagTypes } from "../tag-types";
 import { IMeta } from "@/types";
+import { IDoctor } from "@/types/doctor";
 
 const doctorApi = baseApi.injectEndpoints({
     endpoints:(build)=>({
@@ -19,7 +20,7 @@ const doctorApi = baseApi.injectEndpoints({
                 url:'/doctor',
                 method:"GET"
             }),
-            transformResponse:(response:any,meta:IMeta)=>{
+            transformResponse:(response:IDoctor[],meta:IMeta)=>{
                 return {
                     doctors:response,
                     meta
@@ -30,4 +31,4 @@ const doctorApi = baseApi.injectEndpoints({
     })
 })
 
-export const { useCreateDoctorMutation } = doctorApi;
+export const { useCreateDoctorMutation,useGetDoctorQuery } = doctorApi;
