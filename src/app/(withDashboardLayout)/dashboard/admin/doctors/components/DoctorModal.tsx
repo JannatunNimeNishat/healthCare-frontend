@@ -2,6 +2,7 @@ import PHForm from "@/components/Forms/PHForm";
 import PHInput from "@/components/Forms/PHInput";
 import PHSelectField from "@/components/Forms/PHSelectField";
 import PHFullScreenModal from "@/components/Shared/PHModal/PHFullScreenModal";
+import { Gender } from "@/types";
 import { Button, Grid } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 
