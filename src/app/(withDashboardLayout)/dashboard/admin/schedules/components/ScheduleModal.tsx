@@ -1,3 +1,4 @@
+import PHDatePicker from "@/components/Forms/PHDatePicker";
 import PHForm from "@/components/Forms/PHForm";
 import PHModal from "@/components/Shared/PHModal/PHModal";
 import { Button, Grid } from "@mui/material";
@@ -9,7 +10,7 @@ type TProps = {
   };
 const ScheduleModal = ({ open, setOpen }: TProps)=> {
     const handleFormSubmit = async (values: FieldValues) => {
-        // console.log(values);
+         console.log(values);
        /*  values.startDate = dateFormatter(values.startDate);
         values.endDate = dateFormatter(values.endDate);
         values.startTime = timeFormatter(values.startTime);
@@ -32,7 +33,7 @@ const ScheduleModal = ({ open, setOpen }: TProps)=> {
       <PHForm onSubmit={handleFormSubmit}>
         <Grid container spacing={2} sx={{ width: "400px" }}>
           <Grid item md={12}>
-            {/* <PHDatePicker name="startDate" label="Start Date" /> */}
+            <PHDatePicker name="startDate" label="Start Date" />
           </Grid>
           <Grid item md={12}>
             {/* <PHDatePicker name="endDate" label="End Date" /> */}
