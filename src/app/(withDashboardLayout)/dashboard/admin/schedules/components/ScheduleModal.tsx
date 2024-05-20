@@ -36,7 +36,7 @@ const ScheduleModal = ({ open, setOpen }: TProps)=> {
             <PHDatePicker name="startDate" label="Start Date" />
           </Grid>
           <Grid item md={12}>
-            {/* <PHDatePicker name="endDate" label="End Date" /> */}
+            <PHDatePicker name="endDate" label="End Date" />
           </Grid>
           <Grid item md={6}>
             {/* <PHTimePicker name="startTime" label="Start Time" /> */}

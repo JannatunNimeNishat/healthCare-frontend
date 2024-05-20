@@ -32,6 +32,7 @@ const PHDatePicker = ({
         return (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
+            label={label}
             timezone="system"
             disablePast
               {...field}
