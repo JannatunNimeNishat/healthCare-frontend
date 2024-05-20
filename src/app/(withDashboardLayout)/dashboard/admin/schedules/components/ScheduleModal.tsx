@@ -1,5 +1,6 @@
 import PHDatePicker from "@/components/Forms/PHDatePicker";
 import PHForm from "@/components/Forms/PHForm";
+import PHTimePicker from "@/components/Forms/PHTimePicker";
 import PHModal from "@/components/Shared/PHModal/PHModal";
 import { Button, Grid } from "@mui/material";
 import { FieldValues } from "react-hook-form";
@@ -39,10 +40,10 @@ const ScheduleModal = ({ open, setOpen }: TProps)=> {
             <PHDatePicker name="endDate" label="End Date" />
           </Grid>
           <Grid item md={6}>
-            {/* <PHTimePicker name="startTime" label="Start Time" /> */}
+            <PHTimePicker name="startTime" label="Start Time" />
           </Grid>
           <Grid item md={6}>
-            {/* <PHTimePicker name="endTime" label="End Time" /> */}
+            <PHTimePicker name="endTime" label="End Time" />
           </Grid>
         </Grid>
         <Button type="submit" sx={{ mt: 1 }}>
